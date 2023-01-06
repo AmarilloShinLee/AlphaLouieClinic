@@ -1,0 +1,100 @@
+﻿@model Test.Models.BillingHeaderFile
+
+@{
+    ViewBag.Title = "ViewBill";
+}
+
+<h2>ViewBill</h2>
+
+<div>
+    <h4>BillingHeaderFile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillHNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillHNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillHPatCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillHPatCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillHDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillHDate)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.BillHTotAmt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillHTotAmt)
+            </dd>*@
+    </dl>
+
+    <hr />
+
+    @* Operation Bullshit *@
+    @* Note: OH MY GOD I CAN'T BELIEVE OPERATION BULLSHIT WORKED!' *@
+    <div class="prescriptionOverflow">
+        <table id="prescriptionTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-2">
+                        @Html.DisplayNameFor(model => model.BillingDetails[0].BillDCount)
+                    </th>
+                    <th class="col-md-1">
+                        @Html.DisplayNameFor(model => model.BillingDetails[0].BillDDesc)
+                    </th>
+                    <th class="col-md-9">
+                        @Html.DisplayNameFor(model => model.BillingDetails[0].BillDAmount)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="prescriptionTableBody">
+                @for (var i = 0; i < Model.BillingDetails.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.BillingDetails[i].BillDCount)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.BillingDetails[i].BillDDesc)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.BillingDetails[i].BillDAmount)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Total Amount: ", htmlAttributes: new { @class = "control-label col-xs-6" })
+        <div class="col-xs-6">
+            @Html.TextBoxFor(m => m.BillHTotAmt, new { @class = "billing_total_amount form-control", ReadOnly = "readonly" })
+            @Html.ValidationMessageFor(model => model.BillHTotAmt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "EditBill", new { billCode = Model.BillHNo, oldCode = Model.BillHNo }) |
+    @Html.ActionLink("Billing List", "ViewBillingList")
+</p>

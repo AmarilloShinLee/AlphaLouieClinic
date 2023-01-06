@@ -1,0 +1,50 @@
+﻿@model Test.Models.MedicineFile
+
+@{
+    ViewBag.Title = "ViewMedicine";
+}
+
+<h2>View Medicine</h2>
+
+<div>
+    <h4>MedicineFile</h4>
+    <hr />
+    <dl id="detailRow" class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedDose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedDose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedDesc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditMedicine", new { medCode = Model.MedCode, oldCode = Model.MedCode }) |
+    @Html.ActionLink("Medicine List", "ViewMedicineList")
+</p>

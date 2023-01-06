@@ -1,0 +1,117 @@
+﻿@model Test.Models.PrescriptionHeaderFile
+
+@{
+    ViewBag.Title = "Prescription";
+}
+
+<h2>Prescription</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PrescriptionHeaderFile</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PresHCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PresHCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PresHCode, "", new { @class = "text-danger" })
+            </div>
+            
+            <div>
+                @Html.LabelFor(model => model.PresHDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.PresHDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PresHDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PresHConsNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PresHConsNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PresHConsNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PresHPatCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PresHPatCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PresHPatCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <h4>Medicine to Prescribe</h4>
+
+        <div id="prescription_table" class="prescriptionOverflow table-bordered form-group">
+            <table id="prescriptionTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">
+                            @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDMedCode)
+                        </th>
+                        <th class="col-md-1">
+                            @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDQty)
+                        </th>
+                        <th class="col-md-9">
+                            @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDRemarks)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="prescriptionTableBody">
+                    @for (var i = 0; i < Model.PrescriptionDetails.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DropDownListFor(m => m.PrescriptionDetails[i].PreDMedCode, new SelectList(ClinicDataLibrary.BusinessLogic.MedicineProcessor.GetMedicines(), "MEDCODE", "MEDCODE"), "Select Medicine", new { @class = "detail_code detail_medicine form-control" })
+                                @Html.ValidationMessageFor(m => m.PrescriptionDetails[i].PreDMedCode, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td>
+                                @Html.TextBoxFor(m => m.PrescriptionDetails[i].PreDQty, new { @class = "detail_quantity detail_quantity form-control" })
+                                @Html.ValidationMessageFor(m => m.PrescriptionDetails[i].PreDQty, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td>
+                                @Html.TextBoxFor(m => m.PrescriptionDetails[i].PreDRemarks, new { @class = "detail_remarks form-control" })
+                                @Html.ValidationMessageFor(m => m.PrescriptionDetails[i].PreDRemarks, "", new { @class = "text-danger" })
+                            </td>
+                            
+                            <td>
+                                <button type="button" class="new_row btn btn-primary" title="Add">Add</button>
+                            </td>
+
+                            @Html.TextBoxFor(m => m.PrescriptionDetails[i].PreDMedCode, new { @class="detailCode", @type = "hidden" })
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submitForm" type="submit" value="Submit" class="btn btn-default" />
+                <input id="clearForm" type="button" value="Clear" class="btn btn-default" />
+                <input type="button" value="Return" onclick="location.href = '@Url.Action("ViewPrescriptionList", "Home")'" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="IsUpdate" value="@Model.OldCode" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/prescription")
+}

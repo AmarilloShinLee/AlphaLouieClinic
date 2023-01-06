@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Test.Models.PrescriptionHeaderFile>
+
+@{
+    ViewBag.Title = "ViewPrescriptionList";
+}
+
+<h2>Prescription List</h2>
+
+<div id="tableContainer" >
+    <div class="form-group">
+        <input type="button" class="btn btn-default" onclick="location.href = '@Url.Action("Prescription", "Home", new { oldCode = 0 })'" value="Create Prescription" />
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PresHCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresHConsNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresHPatCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresHDate)
+            </th>
+            <th></th>
+        </tr>
+        
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresHCode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresHConsNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresHPatCode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresHDate)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "EditPrescription", new { presCode = item.PresHCode, oldCode = item.PresHCode }) |
+                    @Html.ActionLink("Details", "ViewPrescription", new { presCode = item.PresHCode }) |
+                    @Html.ActionLink("Delete", "DeletePrescription", new { presCode = item.PresHCode })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

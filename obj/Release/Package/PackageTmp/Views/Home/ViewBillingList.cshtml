@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Test.Models.BillingHeaderFile>
+
+@{
+    ViewBag.Title = "ViewBillingList";
+}
+
+<h2>Billing List</h2>
+
+<div id="tableContainer">
+    <div class="form-group">
+        <input type="button" class="btn btn-default" onclick="location.href = '@Url.Action("Billing", "Home", new { oldCode = 0 })'" value="Create Bill" />
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BillHNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillHPatCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillHDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillHTotAmt)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillHNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillHPatCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillHDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillHTotAmt)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditBill", new { billCode = item.BillHNo, oldCode = item.BillHNo }) |
+                    @Html.ActionLink("Details", "ViewBill", new { billCode = item.BillHNo }) |
+                    @Html.ActionLink("Delete", "DeleteBilling", new { billCode = item.BillHNo })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

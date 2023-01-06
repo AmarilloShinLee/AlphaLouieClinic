@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h1>Welcome Admin. Now you can create user Role.</h1>
+    <h3>
+        <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
+    </h3>
+
+}
+else if (User.IsInRole("Doctor"))
+{
+    <h1>Welcome Doctor <strong>@ViewBag.Name</strong></h1>
+    <ul>
+        <li>
+            <h3>@Html.ActionLink("Prescription", "Index", "Role")</h3>
+        </li>
+    </ul>
+}
+else if (User.IsInRole("Nurse") || User.IsInRole("Secretary"))
+{
+    <h1>Welcome Nurse/Secretary <strong>@ViewBag.Name</strong></h1>
+    <ul>
+        <li>
+            <h3>@Html.ActionLink("Billing", "Index", "Role")</h3>
+        </li>
+    </ul>
+}

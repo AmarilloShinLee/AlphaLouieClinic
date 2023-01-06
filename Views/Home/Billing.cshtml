@@ -1,0 +1,101 @@
+﻿@model Test.Models.BillingHeaderFile
+
+@{
+    ViewBag.Title = "Billing";
+}
+
+<h2>Billing</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillHNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.BillHNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillHNo, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.BillHDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.BillHDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillHDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillHPatCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BillHPatCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillHPatCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="billingOverflow table-bordered form-group">
+            <table id="billing_table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-xs-1">Count</th>
+                        <th class="col-xs-5">Description</th>
+                        <th class="col-xs-5">Amount</th>
+                        <th class="col-xs-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.BillingDetails.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.TextBoxFor(m => m.BillingDetails[i].BillDCount, new { @class = "row_num form-control", ReadOnly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.BillingDetails[i].BillDCount, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td>
+                                @Html.DropDownListFor(m => m.BillingDetails[i].BillDDesc, new SelectList(Test.Models.DescriptionTypeModel.GetDescriptionTypes(), "DescriptionType", "DescriptionType"), "Select Description", new { @class = "billing_description form-control" })
+                                @*@Html.MyDropDownListFor(m => m.BillingDetails[i].BillDDesc, new SelectList(BillingTest_1.Models.DescriptionTypeModel.GetDescriptionTypes(), "DescriptionID", "DescriptionType"), "Select Description", new { @class = "billing_description form-control" })*@
+                                @Html.ValidationMessageFor(m => m.BillingDetails[i].BillDDesc, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td>
+                                @Html.TextBoxFor(m => m.BillingDetails[i].BillDAmount, new { @class = "billing_amount form-control" })
+                                @Html.ValidationMessageFor(m => m.BillingDetails[i].BillDAmount, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td>
+                                <button type="button" class="new_row btn btn-primary" title="Add">Add</button>
+                            </td>
+
+                            @Html.TextBoxFor(m => m.BillingDetails[i].BillDDesc, new { @class = "billDescription", @type = "hidden" })
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Total Amount: ", htmlAttributes: new { @class = "control-label col-xs-6" })
+            <div class="col-xs-6">
+                @Html.TextBoxFor(m => m.BillHTotAmt, new { @class = "billing_total_amount form-control", ReadOnly = "readonly"  })
+                @Html.ValidationMessageFor(model => model.BillHTotAmt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+                <input type="button" value="Clear" class="btn btn-default" />
+                <input type="button" value="Return" onclick="location.href = '@Url.Action("ViewBillingList", "Home")'" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<input type="hidden" id="IsUpdate" value="@Model.OldCode" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/billing")
+}

@@ -1,0 +1,62 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    min-height: 100%;
+    background-color: #5F5980;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.billingOverflow, .prescriptionOverflow {
+    overflow-y: auto;
+    height: 23em;
+}
+
+#loginRow {
+    height: 40em;
+}
+
+#loginContainer {
+    padding: 2em;
+    padding-top: 10.5em;
+    height: 100%;
+    background-color: #CFDEE7;
+}
+
+#tableContainer {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 34em;
+    margin-bottom: 2em;
+}
+
+#registerContainer {
+    height: 36em;
+}
+
+#detailRow {
+    height: 28em;
+}
+
+.clinicFoot {
+    color: #ffffff;
+    padding-top: 3em;
+}

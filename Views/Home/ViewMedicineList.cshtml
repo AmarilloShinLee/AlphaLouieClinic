@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Test.Models.MedicineFile>
+
+@{
+    ViewBag.Title = "ViewMedicineList";
+}
+
+<h2>Medicine List</h2>
+
+<div id="tableContainer">
+
+    <div class="form-group">
+        <input type="button" class="btn btn-default" onclick="location.href = '@Url.Action("Medicine", "Home", new { oldCode = 0 })'" value="Create Medicine" />
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MedCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedDose)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedDesc)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedDose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedDesc)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditMedicine", new { medCode = item.MedCode, oldCode = item.MedCode }) |
+                    @Html.ActionLink("Details", "ViewMedicine", new { medCode = item.MedCode }) |
+                    @Html.ActionLink("Delete", "DeleteMedicine", new { medCode = item.MedCode })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

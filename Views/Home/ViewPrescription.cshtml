@@ -1,0 +1,94 @@
+﻿@model Test.Models.PrescriptionHeaderFile
+
+@{
+    ViewBag.Title = "ViewPrescription";
+}
+
+<h2>ViewPrescription</h2>
+
+<div>
+    <h4>PrescriptionHeaderFile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PresHCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresHCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresHConsNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresHConsNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresHPatCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresHPatCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresHDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresHDate)
+        </dd>
+
+    </dl>
+
+    <hr />
+
+    <h4>Prescribed Medicines</h4>
+
+    @* Operation Bullshit *@
+    @* Note: OH MY GOD I CAN'T BELIEVE OPERATION BULLSHIT WORKED!' *@
+    <div class="prescriptionOverflow">
+        <table id="prescriptionTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-2">
+                        @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDMedCode)
+                    </th>
+                    <th class="col-md-1">
+                        @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDQty)
+                    </th>
+                    <th class="col-md-9">
+                        @Html.DisplayNameFor(model => model.PrescriptionDetails[0].PreDRemarks)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="prescriptionTableBody">
+                @for (var i = 0; i < Model.PrescriptionDetails.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.PrescriptionDetails[i].PreDMedCode)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.PrescriptionDetails[i].PreDQty)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.PrescriptionDetails[i].PreDRemarks)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditPrescription", new { presCode = Model.PresHCode, oldCode = Model.PresHCode }) |
+    @Html.ActionLink("Prescription List", "ViewPrescriptionList")
+</p>
